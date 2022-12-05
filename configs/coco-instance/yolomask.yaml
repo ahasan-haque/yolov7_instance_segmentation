@@ -27,7 +27,7 @@ MODEL:
         [40, 28],
       ]
     ANCHOR_MASK: [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
-    CLASSES: 80
+    CLASSES: 10
     IN_FEATURES: ["dark2", "dark3", "dark4", "dark5"] # p3, p4, p5 from FPN
     WIDTH_MUL: 0.50
     DEPTH_MUL: 0.33
@@ -44,9 +44,9 @@ MODEL:
       WITH_SPP: true
 
 DATASETS:
-  TRAIN: ("coco_2017_train",)
+  TRAIN: ("ahsan_train",)
   # TEST: ("coco_2014_val_mini",)
-  TEST: ("coco_2017_val",)
+  TEST: ("ahsan_val",)
 
 INPUT:
   MASK_FORMAT: "bitmask"

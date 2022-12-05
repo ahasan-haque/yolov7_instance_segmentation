@@ -13,6 +13,7 @@ from detectron2.modeling import build_model
 from yolov7.config import add_yolo_config
 from yolov7.data.dataset_mapper import MyDatasetMapper, MyDatasetMapper2
 from yolov7.evaluation.coco_evaluation import COCOMaskEvaluator
+from detectron2.data.datasets.coco import register_coco_instances
 
 """
 Script used for training instance segmentation, i.e. SparseInst.
@@ -38,6 +39,17 @@ class Trainer(DefaultTrainer):
         model = build_model(cfg)
         return model
 
+def register_custom_datasets():
+    # facemask dataset
+    DATASET_ROOT = "./datasets/test_data"
+    ANN_ROOT = os.path.join(DATASET_ROOT, "annotations")
+    TRAIN_PATH = os.path.join(DATASET_ROOT, "train")
+    VAL_PATH = os.path.join(DATASET_ROOT, "val")
+    TRAIN_JSON = os.path.join(ANN_ROOT, "train.json")
+    VAL_JSON = os.path.join(ANN_ROOT, "val.json")
+    register_coco_instances("ahsan_train", {}, TRAIN_JSON, TRAIN_PATH)
+    register_coco_instances("ahsan_val", {}, VAL_JSON, VAL_PATH)
+
 
 def setup(args):
     cfg = get_cfg()
@@ -50,6 +62,7 @@ def setup(args):
 
 
 def main(args):
+    register_custom_datasets()
     cfg = setup(args)
 
     if args.eval_only:
